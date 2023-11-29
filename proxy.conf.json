@@ -1,0 +1,11 @@
+{
+    "/api/*": {
+        "target": "http://localhost:8081",
+        "sercure": false,
+        "logLevel": "debug",
+        "changeOrigin": true,
+        "pathRewrite": {
+            "/api/": ""
+        }
+    }
+}

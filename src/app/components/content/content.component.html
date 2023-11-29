@@ -1,0 +1,44 @@
+<div class="mt-5 container">
+
+    <div id="description" class="row" *ngIf="content$ | async as content ">
+        <div class="col-6 ">
+            <div class="card  text-bg-dark">
+                <img src="https://www.sirvisual.com/Attachment/100/5860_32763_100-706%20Principale.jpg" class="card-img"
+                    alt="...">
+            </div>
+        </div>
+        <div class="col-6">
+            <div>
+                <h3>{{content.title}}</h3>
+                <h6 class="mb-0"><small class="text-muted">Science</small></h6>
+                <p class="fst-italic my-1 "><small>Published On 01/12/2023</small>
+                </p>
+            </div>
+           
+            <div>
+                <button class="btn btn-sm btn-secondary me-2" disabled="true"><i class="bi bi-currency-dollar"></i>
+                    Purchase</button>
+                <button class="btn btn-sm btn-success"><i class="bi bi-download"></i> Download</button>
+            </div>
+            <div id="text-description">
+                <p>
+                    {{content.description}}
+                </p>
+            </div>
+        </div>
+       
+    </div>
+
+    <div id="information" class="mt-3 row">
+        <div class="col">
+         
+            <h6>Commentaires</h6>
+
+        </div>
+        <div class="col-6 ">
+           
+        </div>
+        
+    </div>
+
+</div>
