@@ -11,8 +11,7 @@ import { ContentService } from 'src/app/services/content/content.service';
   styleUrls: ['./contents.component.scss']
 })
 export class ContentsComponent implements OnInit {
-
-  contents: Content[] = [];
+  categoryId: string | undefined;
   contents$!: Observable<Content[]>;
   categories$!: Observable<Category[]>;
 
@@ -26,6 +25,7 @@ export class ContentsComponent implements OnInit {
   }
 
   switchCategory(categoryId?: string | undefined) {
+    this.categoryId = categoryId;
     if (categoryId)
       this.contents$ = this.contentService.getContentsByCategoryId(categoryId);
     else

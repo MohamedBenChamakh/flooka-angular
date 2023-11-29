@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
-        <a class="navbar-brand text-primary" href="#">Zanga</a>
+        <p class="navbar-brand my-0 fw-bold" [ngClass]="{'text-neon': !isDark}">Zanga</p>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -17,7 +17,8 @@
                     <a class="nav-link" routerLinkActive="active" routerLink="/profile">Profil</a>
                 </li>
             </ul>
-
+            <button class="btn btn-sm " [ngClass]="{'btn-outline-success':isDark,' btn-outline-warning':!isDark}" (click)="darkMode()" >
+                <i class="bi bi-lightbulb" [ngClass]="{'bi-lightbulb ':isDark,'bi-lightbulb-off ':!isDark}"></i> Mode sombre</button>
         </div>
     </div>
 </nav>
