@@ -1,0 +1,9 @@
+
+.card:not(.new-post){
+    cursor: pointer;
+}
+
+
+.card:not(.new-post):active {
+    transform: scale(0.98);
+}

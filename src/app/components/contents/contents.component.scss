@@ -1,12 +1,12 @@
 .card-img-top {
     width: 100%;
-    height: 15vw;
+    height: 12vw;
     object-fit: cover;
 }
-.card{
-    cursor: pointer;
-}
 
-.card:active {
-    transform: scale(0.98);
+.fixed {
+    position: fixed;
+    left: 0;
+    top: 15%;
+    z-index: 1;
 }

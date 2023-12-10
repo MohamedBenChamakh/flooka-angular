@@ -15,16 +15,24 @@ export class ContentComponent implements OnInit {
   content$!: Observable<Content>;
 
   constructor(
-    private route: ActivatedRoute, 
+    private route: ActivatedRoute,
     private contentService: ContentService) {
 
   }
 
   ngOnInit() {
     this.contentId = this.route.snapshot.paramMap.get("contentId");
-    if(this.contentId){
+    if (this.contentId) {
       this.content$ = this.contentService.getContentById(this.contentId);
     }
+  }
+
+  openLink(url: string) {
+    window.open(url, '_blank');
+  }
+
+  downloadFile(path: string) {
+    window.open(path, '_blank');
   }
 
 }
