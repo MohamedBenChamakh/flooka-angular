@@ -1,15 +1,19 @@
-<div class="card border-0 bg-transparent d-flex flex-column justify-content-center align-items-center"
-    routerLink="/profile">
-    <img src="https://shorturl.at/qryVY" alt="profile picture" class="w-50 me-2 rounded  shadow-sm" />
-    <h6 class="my-2">Mohamed Ben Chamakh</h6>
-</div>
-<div>
-    <ul class="mt-3 list-group rounded-1 ">
-        <li class="list-group-item list-group-item-action " [ngClass]="{'active':!categoryId}"
-            (click)="switchCategory()"><i class="bi bi-archive"></i> Voir tout</li>
-        <li class="list-group-item list-group-item-action" [ngClass]="{'active':categoryId===category.id}"
-            *ngFor="let category of categories$ | async" (click)="switchCategory(category.id)">
-            <i class="bi bi-tag"></i> {{category.title}}
-        </li>
-    </ul>
+<div class="content ">
+    <div class="card border-0 bg-transparent d-flex flex-column justify-content-center align-items-center "
+        routerLink="/profile">
+        <img src="https://cdn.pixabay.com/photo/2021/02/22/16/34/portrait-6040876_1280.jpg" alt="profile picture"
+            class="w-50 me-2 rounded  shadow-sm" />
+        <h6 class="my-2">Mohamed Ben Chamakh</h6>
+    </div>
+    <div>
+        <ul class="mt-3 list-group rounded-1 ">
+            <li class="list-group-item border-0 list-group-item-action fw-medium" [ngClass]="{'active':!categoryId}"
+                (click)="switchCategory()"> Voir tout</li>
+            <li class="list-group-item border-0  list-group-item-action fw-medium"
+                [ngClass]="{'active':categoryId===category.id}" *ngFor="let category of categories$ | async"
+                (click)="switchCategory(category.id)">
+                {{category.title}}
+            </li>
+        </ul>
+    </div>
 </div>

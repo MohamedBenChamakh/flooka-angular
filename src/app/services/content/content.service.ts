@@ -8,6 +8,9 @@ import { Content } from 'src/app/models/Content';
 })
 export class ContentService {
 
+  constructor(private http: HttpClient) { }
+
+
   getContentsByCategoryId(categoryId: string): Observable<Content[]> {
     return this.http.get<Content[]>(`http://localhost:4200/api/category/${categoryId}`);
   }
@@ -16,9 +19,12 @@ export class ContentService {
     return this.http.get<Content>(`http://localhost:4200/api/content/${contentId}`);
   }
 
-  constructor(private http: HttpClient) { }
-
   getAllContents(): Observable<Content[]> {
     return this.http.get<Content[]>("http://localhost:4200/api/content");
   }
+
+  saveContent(content: Content) {
+    return this.http.post("http://localhost:4200/api/content", content);
+  }
+
 }

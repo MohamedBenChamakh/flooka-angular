@@ -1,10 +1,14 @@
-<div class="  card shadow-sm border-0 my-1  border-1  p-0  " [routerLink]="['/content/',data.id]">
-    <div class="card-body p-2">
+<div class="  card shadow-sm border-0 my-1 border-1  p-0" >
+    <div class="card-body p-2 " >
 
-        <p class="card-title fw-medium m-0 "><small>{{data.title}}</small></p>
-        <p class="card-title  m-0 "><small>{{data.description}}</small></p>
-        <img *ngIf="data.picture" [src]="data.picture" class="card-img shadow-sm my-2 " [alt]="data.title">
+        <p class="card-title fw-medium m-0 " [routerLink]="['/content/',data.id]"><small>{{data.title}}</small></p>
+        <p class="card-title  m-0 " ><small>{{data.description}}</small></p>
 
+        <img *ngIf="isPicture()" [src]="data.media" class="card-img shadow-sm my-2 " [alt]="data.title">
+        
+        <video controls width="100%" class="rounded" class="card-img shadow-sm my-2 " style="max-height: 500px;"  *ngIf="isVideo()">
+            <source [src]="data.media" type="video/mp4">
+        </video>
 
     </div>
     <div class="card-footer d-flex justify-content-between">

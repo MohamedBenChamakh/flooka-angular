@@ -4,7 +4,8 @@ export class Content {
     id: string;
     title: string;
     description: string;
-    picture: string;
+    media: string;
+    mediaType: string;
     createdAt: string;
     price: number;
     views: number;
@@ -13,19 +14,17 @@ export class Content {
     constructor(id: string,
         title: string,
         description: string,
-        picture: string,
+        media: string,
+        mediaType: string,
         createdAt: string,
-        contentStatus: string,
-        contentType: string,
         price: number,
-        resources: string,
-        link: string,
         views: number,
         publisher: UserShort) {
         this.id = id;
         this.title = title;
         this.description = description;
-        this.picture = picture;
+        this.media = media;
+        this.mediaType = mediaType;
         this.createdAt = createdAt;
         this.price = price;
         this.views = views;

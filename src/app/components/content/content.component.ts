@@ -11,6 +11,7 @@ import { ContentService } from 'src/app/services/content/content.service';
 })
 export class ContentComponent implements OnInit {
 
+
   contentId!: string | null;
   content$!: Observable<Content>;
 
@@ -34,5 +35,14 @@ export class ContentComponent implements OnInit {
   downloadFile(path: string) {
     window.open(path, '_blank');
   }
+
+  isVideo(type: string): boolean {
+    return type === 'VIDEO';
+  }
+
+  isPicture(type: string): boolean {
+    return type === 'PICTURE';
+  }
+
 
 }

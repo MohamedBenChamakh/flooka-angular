@@ -7,6 +7,15 @@ import { Content } from '../../models/Content';
   styleUrls: ['./card.component.scss']
 })
 export class CardComponent {
+
   @Input() data!: Content;
-  
+
+  isVideo(): boolean {
+    return this.data.mediaType === 'VIDEO';
+  }
+
+  isPicture(): boolean {
+    return this.data.mediaType === 'PICTURE';
+  }
+
 }

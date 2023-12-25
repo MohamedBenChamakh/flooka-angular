@@ -13,6 +13,7 @@ import { CategoryService } from './services/category/category.service';
 import { CardComponent } from './templates/card/card.component';
 import { MenuComponent } from './templates/menu/menu.component';
 import { CreatePostComponent } from './components/create-post/create-post.component';
+import { ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,7 +28,8 @@ import { CreatePostComponent } from './components/create-post/create-post.compon
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule,
   ],
   providers: [ContentService, CategoryService],
   bootstrap: [AppComponent]

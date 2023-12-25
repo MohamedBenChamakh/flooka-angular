@@ -1,16 +1,16 @@
 <div class="my-5 container-fluid">
     <div class="row ">
-        <div class="col-2 fixed">
+        <div class="col-2 fixed d-none d-sm-block  h-100 bg-white shadow-sm" >
             <app-menu [categoryId]="categoryId" (switchCategoryEvent)="switchCategory($event)"></app-menu>
         </div>
-        <div class="col-3 "></div>
-        <div class="col-5 ">
+        <div class="col-md-3 "></div>
+        <div class="col-md-5 mt-4">
             <div class="row d-flex justify-content-center">
                 <app-create-post></app-create-post>
             </div>
             <div class="row">
-                <div class="mt-3 col-12 d-flex flex-wrap " *ngFor="let content of contents">
-                    <app-card [data]="content"></app-card>
+                <div class="mt-3 col-12 d-flex flex-wrap d-flex justify-content-center" *ngFor="let content of contents">
+                    <app-card class="w-100" [data]="content" ></app-card>
                 </div>
             </div>
             <div class="col mt-5 px-4 d-flex justify-content-center align-items-center" *ngIf="contents.length==0">
