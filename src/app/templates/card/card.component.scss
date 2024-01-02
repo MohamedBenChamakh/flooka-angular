@@ -4,7 +4,13 @@
 }
 
 
+button:active{
+    border: 0;
+}
 
+button:hover{
+    background-color: #eaeaea;
+}
 
 /*.card:not(.new-post):active {
     transform: scale(0.98);

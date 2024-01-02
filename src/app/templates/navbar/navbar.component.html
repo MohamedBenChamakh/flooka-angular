@@ -1,27 +1,7 @@
-<nav class="navbar navbar-expand-lg  fixed-top border-1 ">
-    <div class="container-fluid">
-        <p class="navbar-brand my-0  fw-bold "><img src="assets/logo.svg" width="140" routerLink="/contents"/></p>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse " id="navbarSupportedContent">
-            <!--<ul class="navbar-nav me-auto  mb-lg-0 w-75 d-flex justify-content-center">
-                <li class="nav-item">
-                    <a class="nav-link btn rounded-top  px-4 " routerLinkActive="active" routerLink="/contents">
-                        <h3><i class="bi bi-house"></i></h3>
-                    </a>
-                </li>
-                <li class="nav-item ">
-                    <a class="nav-link  btn  rounded-top px-4" routerLinkActive="active" routerLink="/profile">
-                        <h3><i class="bi bi-person"></i></h3>
-                    </a>
-                </li>
-            </ul>
-            <button class="btn btn-sm " [ngClass]="{'btn-success':!isDark,' btn-outline-warning':isDark}"
-                (click)="darkMode()">
-                <i class="bi bi-lightbulb" [ngClass]="{'bi-lightbulb ':!isDark,'bi-lightbulb-off ':isDark}"></i> Mode
-                sombre</button>-->
-        </div>
+<nav class="navbar navbar-expand-lg fixed-top border-1 ">
+    <div class="container-fluid navbar-toggler rounded-0 fixed-top border shadow-sm m-0 btn bg-white" type="button" data-bs-toggle="collapse"
+        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+        aria-label="Toggle navigation">
+        <img src="assets/logo.svg" width="140" routerLink="/contents" class="navbar-brand " />
     </div>
 </nav>

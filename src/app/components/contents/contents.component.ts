@@ -10,10 +10,12 @@ import { ContentService } from 'src/app/services/content/content.service';
   styleUrls: ['./contents.component.scss']
 })
 export class ContentsComponent implements OnInit, OnDestroy {
+  selectedContentId?: string;
   categoryId?: string;
   destroy$!: Subject<boolean>;
   contents: Content[] = [];
   pageNumber: number = 0;
+  isBottom: boolean = false;
 
   constructor(private contentService: ContentService) {
 
@@ -23,15 +25,19 @@ export class ContentsComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.destroy$ = new Subject<boolean>();
     this.getContents();
- 
-  
+  }
+
+  viewContentDetails(contentId: string) {
+    this.selectedContentId = contentId;
+    console.log(this.selectedContentId)
   }
 
   getContents() {
     this.contentService.getAllContents().pipe(
       takeUntil(this.destroy$)
-    ).subscribe((values: Content[]) => {this.contents = values
-    console.log(this.contents) ;});
+    ).subscribe((values: Content[]) => {
+      this.contents = values
+    });
   }
 
   getContentsByCategoryId(categoryId: string) {
@@ -41,9 +47,8 @@ export class ContentsComponent implements OnInit, OnDestroy {
   }
 
   switchCategory(categoryId?: string) {
-    console.log(categoryId)
     this.destroy$.next(true);
-    this.categoryId =categoryId;
+    this.categoryId = categoryId;
     if (this.categoryId)
       this.getContentsByCategoryId(this.categoryId);
     else
@@ -51,7 +56,15 @@ export class ContentsComponent implements OnInit, OnDestroy {
 
   }
 
- 
+  @HostListener("window:scroll", [])
+  onScroll(): void {
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight && !this.isBottom) {
+      this.isBottom = true;
+      this.loadMore();
+    }
+  }
+
+
 
   loadMore() {
     this.pageNumber++;
@@ -61,6 +74,7 @@ export class ContentsComponent implements OnInit, OnDestroy {
       values.forEach(element => {
         this.contents.push(element)
       });
+      this.isBottom = false;
     });
   }
 

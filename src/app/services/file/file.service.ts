@@ -10,9 +10,9 @@ export class FileService {
   constructor(private http: HttpClient) { }
 
 
-  saveFile(file: File ) {
+  saveFile(file: Blob) {
     const formData = new FormData();
-    formData.append("file",file);
-    return this.http.post("http://localhost:4200/api/file",formData)
+    formData.append("file", file);
+    return this.http.post("http://localhost:4200/api/file", formData)
   }
 }

@@ -1,4 +1,4 @@
-import { UserShort } from "./UserShort";
+import { User } from "./User";
 
 export class Content {
     id: string;
@@ -9,7 +9,7 @@ export class Content {
     createdAt: string;
     price: number;
     views: number;
-    publisher: UserShort;
+    publisher: User;
 
     constructor(id: string,
         title: string,
@@ -19,7 +19,7 @@ export class Content {
         createdAt: string,
         price: number,
         views: number,
-        publisher: UserShort) {
+        publisher: User) {
         this.id = id;
         this.title = title;
         this.description = description;

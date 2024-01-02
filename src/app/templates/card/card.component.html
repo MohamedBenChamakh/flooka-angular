@@ -1,21 +1,47 @@
-<div class="  card shadow-sm border-0 my-1 border-1  p-0" >
-    <div class="card-body p-2 " >
+<div class="  card shadow-sm border-0 my-1 border-1  p-0">
+    <div class="card-header d-flex align-items-center">
+        <img src="https://cdn.pixabay.com/photo/2021/02/22/16/34/portrait-6040876_1280.jpg" alt="profile picture"
+            class="rounded-profile mx-2 rounded  shadow-sm " width="45px" />
+        <div>
+            <p class="card-title fw-medium m-0 "><small>{{data.publisher.firstName}} {{data.publisher.lastName}}</small>
+            </p>
+            <p class="card-title  m-0 fs-6"><small>{{data.createdAt | date: "MMMM d, y 'at' h:mm a"}}</small>
+            </p>
+        </div>
+    </div>
+    <div class="card-body p-2 ">
 
-        <p class="card-title fw-medium m-0 " [routerLink]="['/content/',data.id]"><small>{{data.title}}</small></p>
-        <p class="card-title  m-0 " ><small>{{data.description}}</small></p>
+        <p class="card-title fw-medium m-0 " ><small>{{data.title}}</small></p>
+        <p class="card-title  m-0 "><small>{{data.description}}</small></p>
 
         <img *ngIf="isPicture()" [src]="data.media" class="card-img shadow-sm my-2 " [alt]="data.title">
-        
-        <video controls width="100%" class="rounded" class="card-img shadow-sm my-2 " style="max-height: 500px;"  *ngIf="isVideo()">
+
+        <video controls width="100%" class="rounded" class="card-img shadow-sm my-2 " style="max-height: 500px;"
+            *ngIf="isVideo()">
             <source [src]="data.media" type="video/mp4">
         </video>
 
     </div>
     <div class="card-footer d-flex justify-content-between">
-        <div></div>
         <div>
-            <p class="card-title"><small><i class="bi bi-eye"></i> 0 vues </small></p>
+            <button class="btn p-1 px-3 ">
+                <p class="card-title fw-medium d-flex align-items-center mt-1"><i class="bi "
+                        [ngClass]="{'bi-heart':false,'bi-heart-fill text-danger':true}"></i> <small class="ms-1">0
+                        j'aime</small></p>
+            </button>
+        </div>
+        <div>
+            <button class="btn p-1 px-3 ">
+                <p class="card-title fw-medium mt-1"><i class="bi bi-chat-dots"></i><small class="ms-1"> 0
+                        commentaires</small></p>
+            </button>
+
+        </div>
+        <div>
+            <p class="card-title fw-medium  pt-1 px-3 mt-1"><i class="bi bi-eye"></i><small class="ms-1"> 0 vues
+                </small></p>
         </div>
 
     </div>
 </div>
+

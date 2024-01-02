@@ -1,15 +1,19 @@
 <div class="col-12 px-2">
-    <div class="card shadow-sm border-0 ">
+    <div class="card shadow-sm border-0 d-none d-lg-block  ">
         <div class="card-body d-flex align-items-center">
             <img src="https://cdn.pixabay.com/photo/2021/02/22/16/34/portrait-6040876_1280.jpg" alt="profile picture"
-                class="rounded-profile mx-2 rounded  shadow-sm" />
+                class="rounded-profile mx-2 rounded  shadow-sm" width="45px" />
             <div class="bg-body-secondary w-100 p-1 rounded-pill  fake-text-area" data-bs-toggle="modal"
                 data-bs-target="#newpost">
-                <p class="m-2">Rédiger un post</p>
+                <p class="m-2 text-muted">Rédiger un post...</p>
             </div>
         </div>
     </div>
 </div>
+
+<button id="float-btn"
+    class="btn btn-lg rounded-pill shadow-sm py-2 px-3  bg-primary text-light  d-lg-none d-xs-block d-sm-block d-md-none"
+    data-bs-toggle="modal" data-bs-target="#newpost"><b> <i class="bi bi-plus"></i></b></button>
 
 
 <!-- Modal -->
@@ -32,15 +36,23 @@
                             style="height: 100px;" formControlName="description"></textarea>
                         <label for="postDescriptionInput">Description</label>
                     </div>
-                    <div class="input-group mb-3">
-                        <input type="file" class="form-control visually-hidden" id="postPicture" (change)="uploadFile($event)">
-                        <label class="btn btn-outline-success btn-sm rounded w-100" for="postPicture">Importer une photo ou une vidéo
+                    <div *ngIf="this.file" class="my-1">
+                        <div class="card">
+                            <div class="btn btn-sm ms-auto" (click)="deleteFile()"><i class="bi bi-x-lg"></i></div>
+                            <img [src]="this.url" class="card-img" width="100px" />
+                        </div>
+                    </div>
+                    <div class="input-group mb-3" *ngIf="!this.file">
+                        <input type="file" class="form-control visually-hidden" id="postPicture"
+                            (change)="uploadFile($event)">
+                        <label class="btn btn-outline-success btn-sm rounded w-100" for="postPicture">Importer une photo
+                            ou une vidéo
                             <i class="bi bi-upload"></i> </label>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary w-100" (click)="onSubmit()">Publier</button>
+                <button type="button" class="btn btn-light border  w-100" (click)="onSubmit()">Publier</button>
             </div>
         </div>
     </div>

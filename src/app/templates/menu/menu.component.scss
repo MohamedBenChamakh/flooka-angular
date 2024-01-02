@@ -1,7 +1,17 @@
-.content{
-    margin-top:50% !important;
+.content {
+    margin-top: 10% !important;
+}
+
+#pdp:hover {
+    cursor: pointer;
 }
 
 .list-group-item-action:not(.active) {
     cursor: pointer;
+}
+.active{
+    background-color: #ededed !important;
+    color: rgb(80, 80, 80);
+    border-radius: 6px;
+    
 }

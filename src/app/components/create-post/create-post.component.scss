@@ -12,3 +12,10 @@
 .fake-text-area:hover {
     cursor: pointer;
 }
+
+#float-btn{
+    position: fixed;
+    bottom:5%;
+    right:5%;
+    z-index: 10;
+}

@@ -1,33 +1,41 @@
-<div class="container">
-    <div>
-        <div class="btn btn-sm rounded" routerLink="/contents"><i class="bi bi-x-lg"></i></div>
-    </div>
-    <div id="description" class="row  " *ngIf="content$ | async as content ">
-        <div class="col-6 d-flex justify-content-center align-items-center" *ngIf="content.media">
-            <div class="card border-0">
-                <img [src]="content.media" class="card-img " [alt]="content.title" *ngIf="isPicture(content.mediaType)">
-                <video controls width="100%" class="card-img " *ngIf="isVideo(content.mediaType)">
-                    <source [src]="content.media" type="video/mp4">
-                </video>
+<div class="modal modal-xl modal-dialog-centered fade" id="testModal" data-bs-backdrop="static"
+    data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Post</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="description" class="row  " *ngIf="content$ | async as content ">
+                    <div class="col-lg-6 col-sm-12 d-flex justify-content-center align-items-center"
+                        *ngIf="content.media">
+                        <div class="card border-0">
+                            <img [src]="content.media" class="card-img " [alt]="content.title"
+                                *ngIf="isPicture(content.mediaType)">
+                            <video controls width="100%" class="card-img " *ngIf="isVideo(content.mediaType)">
+                                <source [src]="content.media" type="video/mp4">
+                            </video>
+                        </div>
+                    </div>
+                    <div [ngClass]="{'mx-auto':!content.media}"
+                        class="col-lg-6 col-sm-12  card p-3 border-0 shadow-sm ">
+                        <div>
+                            <h4 class="m-0">{{content.title}}</h4>
+                            <p class="mt-1 mb-0"><small><i class="bi bi-eye"></i> 0 vues </small></p>
+                            <p class="fst-italic m-1 ms-0 mb-2"><small>Publier par {{content.publisher.firstName}}
+                                    {{content.publisher.lastName}}, le
+                                    {{content.createdAt}}</small>
+                            </p>
+                        </div>
+                        <div class="mt-1" id="text-description">
+                            <p>
+                                {{content.description}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
-        <div [ngClass]="{'mx-auto':!content.media}" class="col-6 card p-3 border-0 shadow-sm ">
-            <div>
-                <h4 class="m-0">{{content.title}}</h4>
-                <p class="mt-1 mb-0"><small><i class="bi bi-eye"></i> 0 vues </small></p>
-                <p class="fst-italic m-1 ms-0 mb-2"><small>Publier par {{content.publisher.firstName}}
-                        {{content.publisher.lastName}}, le
-                        {{content.createdAt}}</small>
-                </p>
-            </div>
-            <div class="mt-1" id="text-description">
-                <p>
-                    {{content.description}}
-                </p>
-            </div>
-        </div>
-
     </div>
-
-
-</div>

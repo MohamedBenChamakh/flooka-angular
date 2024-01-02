@@ -12,9 +12,8 @@ import { FileService } from 'src/app/services/file/file.service';
 })
 export class CreatePostComponent implements OnInit {
   contentForm!: FormGroup;
-  file?: File;
-
-
+  file?: Blob;
+  url?: any;
 
   ngOnInit(): void {
     this.initForm();
@@ -28,23 +27,43 @@ export class CreatePostComponent implements OnInit {
     this.contentForm = this.formBuilder.group({
       title: "",
       description: "",
-      picture: ""
+      media: ""
     });
   }
 
   uploadFile($event: any) {
+    let reader = new FileReader();
     this.file = $event.target.files[0];
+    if (this.file) {
+      reader.readAsDataURL(this.file);
+      reader.onload = () => {
+        this.url = reader.result;
+      };
+    }
+  }
+
+  deleteFile(): void {
+    this.file = undefined;
+    this.url = null;
   }
 
   onSubmit() {
-    if(this.file)
-    this.fileService.saveFile(this.file).pipe(
-      concatMap(result => {
-        this.contentForm.setValue({ "picture": result });
-        const formValue = this.contentForm.value;
-        console.log(formValue)
-        return this.contentService.saveContent(formValue);
-      })).subscribe(console.log)
+    if (this.file)
+      this.fileService.saveFile(this.file).subscribe(
+        response => {
+          console.log('File uploaded successfully:', response);
+        },
+        error => {
+          console.error('Error uploading file:', error);
+        });
+
+    /*  .pipe(
+        concatMap(result => {
+          this.contentForm.setValue({ "media": result });
+          const formValue = this.contentForm.value;
+          console.log(formValue)
+          return this.contentService.saveContent(formValue);
+        })).subscribe(console.log)*/
 
   }
 
