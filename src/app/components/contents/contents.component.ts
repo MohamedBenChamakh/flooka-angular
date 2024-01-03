@@ -10,11 +10,10 @@ import { ContentService } from 'src/app/services/content/content.service';
   styleUrls: ['./contents.component.scss']
 })
 export class ContentsComponent implements OnInit, OnDestroy {
-  selectedContentId?: string;
   categoryId?: string;
   destroy$!: Subject<boolean>;
   contents: Content[] = [];
-  pageNumber: number = 0;
+  page: number = 0;
   isBottom: boolean = false;
 
   constructor(private contentService: ContentService) {
@@ -24,35 +23,36 @@ export class ContentsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.destroy$ = new Subject<boolean>();
-    this.getContents();
+    this.getContents(this.page);
   }
 
-  viewContentDetails(contentId: string) {
-    this.selectedContentId = contentId;
-    console.log(this.selectedContentId)
-  }
 
-  getContents() {
-    this.contentService.getAllContents().pipe(
+
+  getContents(page: number) {
+    this.contentService.getAllContents(page).pipe(
       takeUntil(this.destroy$)
     ).subscribe((values: Content[]) => {
       this.contents = values
     });
   }
 
-  getContentsByCategoryId(categoryId: string) {
-    this.contentService.getContentsByCategoryId(categoryId).pipe(
+  getContentsByCategoryId(categoryId: string, page: number) {
+    this.contentService.getContentsByCategoryId(categoryId, page).pipe(
       takeUntil(this.destroy$)
     ).subscribe((values: Content[]) => this.contents = values);
   }
 
   switchCategory(categoryId?: string) {
-    this.destroy$.next(true);
     this.categoryId = categoryId;
-    if (this.categoryId)
-      this.getContentsByCategoryId(this.categoryId);
-    else
-      this.getContents()
+    this.isBottom = false;
+    this.page = 0;
+    this.contents = [];
+    this.destroy$.next(true);
+    if (categoryId)
+      this.getContentsByCategoryId(categoryId, this.page);
+    else {
+      this.getContents(this.page)
+    }
 
   }
 
@@ -67,15 +67,28 @@ export class ContentsComponent implements OnInit, OnDestroy {
 
 
   loadMore() {
-    this.pageNumber++;
-    this.contentService.getAllContents().pipe(
-      takeUntil(this.destroy$)
-    ).subscribe((values: Content[]) => {
-      values.forEach(element => {
-        this.contents.push(element)
+    this.page++;
+    if (this.categoryId) {
+      this.contentService.getContentsByCategoryId(this.categoryId, this.page).pipe(
+        takeUntil(this.destroy$)
+      ).subscribe((values: Content[]) => {
+        values.forEach(element => {
+          this.contents.push(element)
+        });
+        if (values.length > 0)
+          this.isBottom = false;
       });
-      this.isBottom = false;
-    });
+    } else {
+      this.contentService.getAllContents(this.page).pipe(
+        takeUntil(this.destroy$)
+      ).subscribe((values: Content[]) => {
+        values.forEach(element => {
+          this.contents.push(element)
+        });
+        if (values.length > 0)
+          this.isBottom = false;
+      });
+    }
   }
 
   ngOnDestroy(): void {

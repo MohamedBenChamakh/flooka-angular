@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Content } from 'src/app/models/Content';
@@ -11,16 +11,18 @@ export class ContentService {
   constructor(private http: HttpClient) { }
 
 
-  getContentsByCategoryId(categoryId: string): Observable<Content[]> {
-    return this.http.get<Content[]>(`http://localhost:4200/api/category/${categoryId}`);
+  getContentsByCategoryId(categoryId: string, page: number): Observable<Content[]> {
+    let params = new HttpParams().set("page", page.toString());
+    return this.http.get<Content[]>(`http://localhost:4200/api/category/${categoryId}`, { params: params });
   }
 
   getContentById(contentId: string): Observable<Content> {
     return this.http.get<Content>(`http://localhost:4200/api/content/${contentId}`);
   }
 
-  getAllContents(): Observable<Content[]> {
-    return this.http.get<Content[]>("http://localhost:4200/api/content");
+  getAllContents(page: number): Observable<Content[]> {
+    let params = new HttpParams().set("page", page.toString());
+    return this.http.get<Content[]>("http://localhost:4200/api/content", { params: params });
   }
 
   saveContent(content: Content) {
