@@ -15,6 +15,7 @@ import { CreatePostComponent } from './components/create-post/create-post.compon
 import { ReactiveFormsModule } from '@angular/forms';
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
+import { GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from '@abacritt/angularx-social-login';
 registerLocaleData(localeFr, 'fr');
 @NgModule({
   declarations: [
@@ -31,8 +32,23 @@ registerLocaleData(localeFr, 'fr');
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
+    SocialLoginModule
   ],
-  providers: [ContentService, CategoryService,{provide: LOCALE_ID, useValue: 'fr' }],
+  providers: [ContentService, CategoryService, { provide: LOCALE_ID, useValue: 'fr' },
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider('457399083430-bqvv7hgohh3fja3q6g613si682prpjbh.apps.googleusercontent.com', {
+              scopes: 'openid profile email',
+            }),
+          },
+        ],
+      } as SocialAuthServiceConfig,
+    },],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
