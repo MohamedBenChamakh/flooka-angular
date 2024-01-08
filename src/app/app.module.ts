@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -13,6 +13,9 @@ import { CardComponent } from './templates/card/card.component';
 import { MenuComponent } from './templates/menu/menu.component';
 import { CreatePostComponent } from './components/create-post/create-post.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { registerLocaleData } from '@angular/common';
+import localeFr from '@angular/common/locales/fr';
+registerLocaleData(localeFr, 'fr');
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,7 +32,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     HttpClientModule,
     ReactiveFormsModule,
   ],
-  providers: [ContentService, CategoryService],
+  providers: [ContentService, CategoryService,{provide: LOCALE_ID, useValue: 'fr' }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

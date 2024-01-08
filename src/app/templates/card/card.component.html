@@ -1,11 +1,12 @@
 <div class="  card shadow-sm border-0 my-1 border-1  p-0">
     <div class="card-header d-flex align-items-center">
-        <img src="https://cdn.pixabay.com/photo/2021/02/22/16/34/portrait-6040876_1280.jpg" alt="profile picture"
+        <img [src]="data.publisher.picture" alt="profile picture"
             class="rounded-profile mx-2 rounded  shadow-sm " width="45px" />
         <div>
-            <p class="card-title fw-medium m-0 "><small>{{data.publisher.firstName}} {{data.publisher.lastName}}</small>
+          
+            <p class="card-title fw-medium p-0 m-0 "><small>{{data.publisher.firstName}} {{data.publisher.lastName}}</small>
             </p>
-            <p class="card-title  m-0 fs-6"><small>{{data.createdAt | date: "MMMM d, y 'at' h:mm a"}}</small>
+            <p class="card-title p-0 m-0 text-muted date"><small>{{data.createdAt | date: "d MMMM y 'à' H:mm "}}</small>
             </p>
         </div>
     </div>
@@ -14,10 +15,10 @@
         <p class="card-title fw-medium m-0 " ><small>{{data.title}}</small></p>
         <p class="card-title  m-0 "><small>{{data.description}}</small></p>
 
-        <img *ngIf="isPicture()" [src]="data.media" class="card-img shadow-sm my-2 " [alt]="data.title">
+        <img *ngIf="isImage()" [src]="data.media" class="card-img shadow-sm my-2 " [alt]="data.title">
 
-        <video controls width="100%" class="rounded" class="card-img shadow-sm my-2 " style="max-height: 500px;"
-            *ngIf="isVideo()">
+        <video  width="100%"  class="card-img shadow-sm my-2 rounded" style="max-height: 500px;"  preload="metadata" 
+            *ngIf="isVideo()" controls>
             <source [src]="data.media" type="video/mp4">
         </video>
 
@@ -26,13 +27,13 @@
         <div>
             <button class="btn p-1 px-3 ">
                 <p class="card-title fw-medium d-flex align-items-center mt-1"><i class="bi "
-                        [ngClass]="{'bi-heart':false,'bi-heart-fill text-danger':true}"></i> <small class="ms-1">0
+                        [ngClass]="{'bi-heart':false,'bi-heart-fill text-danger':true}"></i> <small class="ms-1">{{data.totalLikes}}
                         j'aime</small></p>
             </button>
         </div>
         <div>
             <button class="btn p-1 px-3 ">
-                <p class="card-title fw-medium mt-1"><i class="bi bi-chat-dots"></i><small class="ms-1"> 0
+                <p class="card-title fw-medium mt-1"><i class="bi bi-chat-dots"></i><small class="ms-1"> {{data.totalComments}}
                         commentaires</small></p>
             </button>
 

@@ -17,6 +17,7 @@ export class CreatePostComponent implements OnInit {
   contentForm!: FormGroup;
   file?: File;
   url?: any;
+  mediaType?: string | null;
 
   ngOnInit(): void {
     this.initForm();
@@ -42,6 +43,7 @@ export class CreatePostComponent implements OnInit {
       reader.readAsDataURL(this.file);
       reader.onload = () => {
         this.url = reader.result;
+        this.mediaType = this.extractMediaType() ;
       };
     }
   }
@@ -54,23 +56,36 @@ export class CreatePostComponent implements OnInit {
   onSubmit() {
     if (this.file) {
       let mediaType = this.extractMediaType();
-      if (mediaType) {
-        this.fileService.saveFile(this.file).pipe(
-          concatMap(result => {
-            const formValue = {
-              ...this.contentForm.value,
-              category: new Category(this.categoryId),
-              publisher: new User("550e8400-e29b-41d4-a716-446655440001"),
-              media: "http://localhost:8081/video/" + this.file?.name.split(".")[0],
-              mediaType: mediaType,
-              createdAt: null
-            };
-            console.log(formValue)
-            return this.contentService.saveContent(formValue);
-          })).subscribe(console.log)
+      let media: string;
+      if (mediaType === "VIDEO") {
+        media = "http://localhost:8081/video/" + this.file?.name.split(".")[0]
+      } else if (mediaType === "IMAGE") {
+        media = "http://localhost:8081/image/" + this.file?.name.split(".")[0]
       }
-
+      this.fileService.saveFile(this.file).pipe(
+        concatMap(result => {
+          const formValue = {
+            ...this.contentForm.value,
+            category: new Category(this.categoryId),
+            publisher: new User("550e8400-e29b-41d4-a716-446655440001"),
+            media: media,
+            mediaType: mediaType,
+            createdAt: null
+          };
+          console.log(formValue)
+          return this.contentService.saveContent(formValue);
+        })).subscribe(console.log)
+    } else {
+      const formValue = {
+        ...this.contentForm.value,
+        category: new Category(this.categoryId),
+        publisher: new User("550e8400-e29b-41d4-a716-446655440001"),
+        createdAt: null
+      };
+      this.contentService.saveContent(formValue).subscribe()
     }
+
+
 
 
   }
@@ -78,6 +93,14 @@ export class CreatePostComponent implements OnInit {
   extractMediaType(): string | null {
     let ext = this.file?.type.split("/")[0].toUpperCase();
     return ext === "VIDEO" || ext === "IMAGE" ? ext : null;
+  }
+
+  isImage(): boolean{
+    return this.mediaType === "IMAGE";
+  }
+
+  isVideo(): boolean{
+    return this.mediaType === "VIDEO";
   }
 
 

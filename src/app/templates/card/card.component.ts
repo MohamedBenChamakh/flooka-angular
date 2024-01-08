@@ -14,8 +14,8 @@ export class CardComponent {
     return this.data.mediaType === 'VIDEO';
   }
 
-  isPicture(): boolean {
-    return this.data.mediaType === 'PICTURE';
+  isImage(): boolean {
+    return this.data.mediaType === 'IMAGE';
   }
 
 }

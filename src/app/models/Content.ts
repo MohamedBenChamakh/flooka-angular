@@ -10,6 +10,8 @@ export class Content {
     price: number;
     views: number;
     publisher: User;
+    totalLikes: number;
+    totalComments: number;
 
     constructor(id: string,
         title: string,
@@ -19,7 +21,9 @@ export class Content {
         createdAt: string,
         price: number,
         views: number,
-        publisher: User) {
+        publisher: User,
+        totalLikes: number,
+        totalComments: number) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -29,5 +33,7 @@ export class Content {
         this.price = price;
         this.views = views;
         this.publisher = publisher;
+        this.totalComments = totalComments;
+        this.totalLikes = totalLikes
     }
 }

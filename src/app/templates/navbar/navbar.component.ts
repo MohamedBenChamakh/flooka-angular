@@ -19,4 +19,8 @@ export class NavbarComponent implements OnInit {
       document.documentElement.setAttribute('data-bs-theme', 'dark');
     this.isDark = !this.isDark;
   }
+
+  signIn() {
+    throw new Error('Method not implemented.');
+    }
 }
