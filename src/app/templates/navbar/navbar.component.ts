@@ -1,6 +1,5 @@
-import { GoogleLoginProvider, SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { KeycloakService } from 'keycloak-angular';
 
 @Component({
   selector: 'app-navbar',
@@ -9,21 +8,17 @@ import { Router } from '@angular/router';
 })
 export class NavbarComponent implements OnInit {
   isDark!: boolean;
-  socialUser!: SocialUser;
-  isLoggedin?: boolean;
+  isLoggedIn!: boolean;
 
-  
+  constructor(private keycloak: KeycloakService) { }
+
   ngOnInit(): void {
     this.isDark = document.documentElement.getAttribute('data-bs-theme') === 'dark';
-
-    this.socialAuthService.authState.subscribe((user) => {
-      this.socialUser = user;
-      this.isLoggedin = user != null;
-      console.log(this.socialUser);
-    });
+    this.isLoggedIn = this.keycloak.isLoggedIn();
+    if (this.isLoggedIn)
+      this.keycloak.loadUserProfile().then(console.log)
   }
 
-  constructor(private socialAuthService: SocialAuthService){}
 
   darkMode() {
     if (this.isDark)
@@ -33,7 +28,11 @@ export class NavbarComponent implements OnInit {
     this.isDark = !this.isDark;
   }
 
-  signIn() {
-    this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
-    }
+  logIn() {
+    this.keycloak.login();
+  }
+
+  logOut() {
+    this.keycloak.logout();
+  }
 }

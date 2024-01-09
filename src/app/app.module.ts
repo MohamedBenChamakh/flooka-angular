@@ -1,4 +1,4 @@
-import { LOCALE_ID, NgModule } from '@angular/core';
+import { APP_INITIALIZER, LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -15,7 +15,8 @@ import { CreatePostComponent } from './components/create-post/create-post.compon
 import { ReactiveFormsModule } from '@angular/forms';
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
-import { GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from '@abacritt/angularx-social-login';
+import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
+import { initializer } from 'src/utils/app-init';
 registerLocaleData(localeFr, 'fr');
 @NgModule({
   declarations: [
@@ -31,24 +32,18 @@ registerLocaleData(localeFr, 'fr');
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule,
-    SocialLoginModule
+    ReactiveFormsModule, 
+    KeycloakAngularModule
   ],
-  providers: [ContentService, CategoryService, { provide: LOCALE_ID, useValue: 'fr' },
-    {
-      provide: 'SocialAuthServiceConfig',
-      useValue: {
-        autoLogin: false,
-        providers: [
-          {
-            id: GoogleLoginProvider.PROVIDER_ID,
-            provider: new GoogleLoginProvider('457399083430-bqvv7hgohh3fja3q6g613si682prpjbh.apps.googleusercontent.com', {
-              scopes: 'openid profile email',
-            }),
-          },
-        ],
-      } as SocialAuthServiceConfig,
-    },],
+  providers: [ContentService, CategoryService,
+     { provide: LOCALE_ID, useValue: 'fr' },
+     {
+      provide: APP_INITIALIZER,
+      useFactory: initializer,
+      deps: [KeycloakService],
+      multi: true,
+    }
+    ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

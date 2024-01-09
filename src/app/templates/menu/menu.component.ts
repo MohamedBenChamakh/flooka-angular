@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { KeycloakService } from 'keycloak-angular';
 import { Observable } from 'rxjs';
 import { Category } from 'src/app/models/Category';
 import { CategoryService } from 'src/app/services/category/category.service';
@@ -12,13 +13,22 @@ export class MenuComponent {
   @Output() switchCategoryEvent = new EventEmitter<string>();
   @Input() categoryId?: string;
   categories$!: Observable<Category[]>;
+  isLoggedIn!: boolean;
+  name?: string;
 
 
-  ngOnInit(){
+  ngOnInit() {
     this.categories$ = this.categoryService.getAllCategories();
+    this.isLoggedIn = this.keycloak.isLoggedIn();
+    if (this.isLoggedIn) {
+      this.keycloak.loadUserProfile().then(values => {
+        if (values.firstName && values.lastName)
+          this.name = values.firstName + " " + values.lastName
+      })
+    }
   }
 
-  constructor( private categoryService: CategoryService){
+  constructor(private categoryService: CategoryService, private keycloak: KeycloakService) {
   }
 
 

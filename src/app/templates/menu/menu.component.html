@@ -9,12 +9,12 @@
     </div>-->
 
     <div>
-        <ul class="mt-3 list-group rounded-0 ">
+        <ul class="mt-3 list-group rounded-0 " *ngIf="isLoggedIn">
             <li class="list-group-item border-0  bg-transparent rounded list-group-item-action  fs-6 fw-medium"> <img
                     src="https://cdn.pixabay.com/photo/2021/02/22/16/34/portrait-6040876_1280.jpg" alt="profile picture"
-                    width="40px" id="pdp" class="  rounded  shadow-sm" routerLink="/profile" /> Mohamed Ben Chamakh</li>
+                    width="40px" id="pdp" class="  rounded  shadow-sm" routerLink="/profile" /> {{name}}</li>
         </ul>
-        <hr class="solid">
+        <hr class="solid"  *ngIf="isLoggedIn">
         <h6 class="mt-3 text-muted">Catégories</h6>
         <ul class="mt-3 list-group list-group-flush rounded-0 ">
             <li class="list-group-item border-0  bg-transparent rounded list-group-item-action  fs-6 "
