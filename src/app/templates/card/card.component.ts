@@ -27,12 +27,16 @@ export class CardComponent implements OnInit {
   constructor(private contentService: ContentService, private keycloak: KeycloakService) { }
 
   onLike() {
+    this.isLiked = !this.isLiked;
     this.contentService.likeContent(this.data.id).pipe(
       takeUntil(this.destroy$)
-    ).subscribe((value: Content) => {
-      this.data = value
-      this.isLiked = !this.isLiked;
-    });
+    ).subscribe({
+      next: (value)=>{
+        this.data = value;
+      },
+      error: ()=> this.isLiked = !this.isLiked
+    })
+    
 
 
   }
