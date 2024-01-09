@@ -8,6 +8,7 @@ import { Content } from 'src/app/models/Content';
 })
 export class ContentService {
 
+
   constructor(private http: HttpClient) { }
 
 
@@ -27,6 +28,10 @@ export class ContentService {
 
   saveContent(content: Content) {
     return this.http.post("http://localhost:4200/api/content", content);
+  }
+
+  likeContent(contentId: string): Observable<Content> {
+    return this.http.put<Content>(`http://localhost:4200/api/content/${contentId}/like`,null);
   }
 
 }

@@ -25,21 +25,21 @@
     </div>
     <div class="card-footer d-flex justify-content-between">
         <div>
-            <button class="btn p-1 px-3 ">
-                <p class="card-title fw-medium d-flex align-items-center mt-1"><i class="bi "
-                        [ngClass]="{'bi-heart':false,'bi-heart-fill text-danger':true}"></i> <small class="ms-1">{{data.totalLikes}}
+            <button class="btn p-1 px-3 " (click)="onLike()">
+                <p class="card-title fw-medium d-flex align-items-center mt-1 text-muted"><i class="bi "
+                        [ngClass]="{'bi-heart ':isLiked==false,'bi-heart-fill text-danger':isLiked}"></i> <small class="ms-1">{{data.totalLikes}}
                         j'aime</small></p>
             </button>
         </div>
         <div>
             <button class="btn p-1 px-3 ">
-                <p class="card-title fw-medium mt-1"><i class="bi bi-chat-dots"></i><small class="ms-1"> {{data.totalComments}}
+                <p class="card-title fw-medium mt-1 text-muted"><i class="bi bi-chat-dots"></i><small class="ms-1"> {{data.totalComments}}
                         commentaires</small></p>
             </button>
 
         </div>
         <div>
-            <p class="card-title fw-medium  pt-1 px-3 mt-1"><i class="bi bi-eye"></i><small class="ms-1"> 0 vues
+            <p class="card-title fw-medium  pt-1 px-3 mt-1 text-muted"><i class="bi bi-eye"></i><small class="ms-1"> 0 vues
                 </small></p>
         </div>
 

@@ -1,3 +1,4 @@
+import { Like } from "./Like";
 import { User } from "./User";
 
 export class Content {
@@ -12,6 +13,7 @@ export class Content {
     publisher: User;
     totalLikes: number;
     totalComments: number;
+    likes: Like[];
 
     constructor(id: string,
         title: string,
@@ -23,7 +25,8 @@ export class Content {
         views: number,
         publisher: User,
         totalLikes: number,
-        totalComments: number) {
+        totalComments: number,
+        likes: Like[]) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -34,6 +37,7 @@ export class Content {
         this.views = views;
         this.publisher = publisher;
         this.totalComments = totalComments;
-        this.totalLikes = totalLikes
+        this.totalLikes = totalLikes;
+        this.likes = likes;
     }
 }
