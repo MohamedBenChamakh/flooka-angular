@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { concatMap } from 'rxjs';
 import { Category } from 'src/app/models/Category';
 import { Content } from 'src/app/models/Content';
@@ -13,6 +14,7 @@ import { FileService } from 'src/app/services/file/file.service';
   styleUrls: ['./create-post.component.scss']
 })
 export class CreatePostComponent implements OnInit {
+
   @Input() categoryId?: string;
   contentForm!: FormGroup;
   file?: File;
@@ -25,7 +27,8 @@ export class CreatePostComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
     private contentService: ContentService,
-    private fileService: FileService) { }
+    private fileService: FileService,
+    private toastrService: ToastrService) { }
 
   initForm() {
     this.contentForm = this.formBuilder.group({
@@ -43,7 +46,7 @@ export class CreatePostComponent implements OnInit {
       reader.readAsDataURL(this.file);
       reader.onload = () => {
         this.url = reader.result;
-        this.mediaType = this.extractMediaType() ;
+        this.mediaType = this.extractMediaType();
       };
     }
   }
@@ -57,49 +60,59 @@ export class CreatePostComponent implements OnInit {
     if (this.file) {
       let mediaType = this.extractMediaType();
       let media: string;
-      if (mediaType === "VIDEO") {
-        media = "http://localhost:8081/video/" + this.file?.name.split(".")[0]
-      } else if (mediaType === "IMAGE") {
-        media = "http://localhost:8081/image/" + this.file?.name.split(".")[0]
-      }
       this.fileService.saveFile(this.file).pipe(
-        concatMap(result => {
+        concatMap((data: any) => {
+          this.toastrService.success('Média transmise')
+          media = "http://localhost:8081/" + mediaType?.toLowerCase() + "/" + data.fileName;
+          console.log(media)
           const formValue = {
             ...this.contentForm.value,
             category: new Category(this.categoryId),
             publisher: new User("550e8400-e29b-41d4-a716-446655440001"),
             media: media,
             mediaType: mediaType,
-            createdAt: null
           };
-          console.log(formValue)
           return this.contentService.saveContent(formValue);
-        })).subscribe(console.log)
+        })).subscribe({
+          next: () => this.toastrService.success('Publication créée'),
+          error: (e) => console.log("error while creating post ", e)
+        })
     } else {
       const formValue = {
         ...this.contentForm.value,
         category: new Category(this.categoryId),
-        publisher: new User("550e8400-e29b-41d4-a716-446655440001"),
-        createdAt: null
+        publisher: new User("550e8400-e29b-41d4-a716-446655440001")
       };
-      this.contentService.saveContent(formValue).subscribe()
+      this.contentService.saveContent(formValue).subscribe({
+        next: (result) => {
+          this.toastrService.success('Publication créée')
+          console.log(result)
+        },
+        error: () => console.log("error while creating post")
+      })
     }
-
-
-
-
   }
+
+  onMetadata($event: Event,video: HTMLVideoElement) {
+    console.log("onMetadata")
+    if(video.duration>60){
+      console.log("video more than 1 min")
+    }else{
+      console.log("video less than 1 min")
+
+    }
+    }
 
   extractMediaType(): string | null {
     let ext = this.file?.type.split("/")[0].toUpperCase();
     return ext === "VIDEO" || ext === "IMAGE" ? ext : null;
   }
 
-  isImage(): boolean{
+  isImage(): boolean {
     return this.mediaType === "IMAGE";
   }
 
-  isVideo(): boolean{
+  isVideo(): boolean {
     return this.mediaType === "VIDEO";
   }
 

@@ -5,22 +5,22 @@
         <img src="assets/logo.svg" width="140" routerLink="/contents" class="navbar-brand " />
     </div>
 
-
-    <div class="ms-5">
-        <img src="assets/logo.svg" width="130" routerLink="/contents" class="navbar-brand " />
+    <div class=" w-25">
+        <img src="assets/logo.svg" width="130" routerLink="/contents" class="navbar-brand ms-5 " />
     </div>
-    <div class="input-group input-group w-25 ">
-        <span class="input-group-text" id="inputGroup-sizing-sm"><i class="bi bi-search"></i></span>
-        <input type="text" class="form-control" placeholder="Recherche..." aria-label="search input"
-            aria-describedby="inputGroup-sizing-sm">
+    <div class="w-25 ">
+        <div class="input-group  ">
+            <span class="input-group-text " id="inputGroup-sizing-sm"><i class="bi bi-search"></i></span>
+            <input type="text" class="form-control " placeholder="Recherche..." aria-label="search input"
+                aria-describedby="inputGroup-sizing-sm">
+        </div>
     </div>
-    <div *ngIf="isLoggedIn"> 
-        <button class="btn btn-light border  me-4" (click)="logOut()" >
+    <div class="w-25  d-flex justify-content-end">
+        <button class="btn btn-light border me-4" (click)="logOut()" *ngIf="isLoggedIn">
             <small class="d-none d-sm-block "><i class="bi bi-box-arrow-right text-muted"></i> Se déconnecter</small>
         </button>
+        <button class="btn btn-light border  me-4" (click)="logIn()" *ngIf="isLoggedIn==false">
+            <small class="d-none d-sm-block "><i class="bi bi-person-square text-muted"></i> Se connecter</small>
+        </button>
     </div>
-    <button class="btn btn-light border  me-4"  (click)="logIn()" *ngIf="isLoggedIn==false">
-        <small class="d-none d-sm-block "><i class="bi bi-person-square text-muted"></i> Se connecter</small>
-    </button>
-
 </nav>

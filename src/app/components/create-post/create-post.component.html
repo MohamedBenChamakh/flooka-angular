@@ -38,11 +38,12 @@
                     </div>
                     <div *ngIf="this.file" class="my-1">
                         <div class="card">
-                            <div class="btn btn-sm ms-auto"  (click)="deleteFile()"><i class="bi bi-x-lg "  ></i></div>
-                            <img [src]="this.url" class="card-img " *ngIf="isImage()"/>
-                            <video controls class="rounded" class="card-img shadow-sm my-2 "  *ngIf="isVideo()">
-                            <source [src]="this.url" type="video/mp4">
-                        </video>
+                            <div class="btn btn-sm ms-auto" (click)="deleteFile()"><i class="bi bi-x-lg "></i></div>
+                            <img [src]="this.url" class="card-img " *ngIf="isImage()" />
+                            <video controls class="rounded" class="card-img shadow-sm my-2 " *ngIf="isVideo()" #video
+                                (loadedmetadata)="onMetadata($event, video)">
+                                <source [src]="this.url" type="video/mp4">
+                            </video>
                         </div>
                     </div>
                     <div class="input-group mb-3" *ngIf="!this.file">
@@ -55,7 +56,8 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-light border  w-100" (click)="onSubmit()">Publier</button>
+                <button type="button" class="btn btn-light border  w-100" data-bs-dismiss="modal"
+                    (click)="onSubmit()">Publier</button>
             </div>
         </div>
     </div>

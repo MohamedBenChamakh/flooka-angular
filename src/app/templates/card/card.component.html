@@ -1,9 +1,8 @@
 <div class="  card shadow-sm border-0 my-1 border-1  p-0">
     <div class="card-header d-flex align-items-center">
         <img [src]="data.publisher.picture" alt="profile picture"
-            class="rounded-profile mx-2 rounded  shadow-sm " width="45px" />
-        <div>
-          
+            class="rounded-profile me-2 rounded  shadow-sm " width="45px" />
+        <div class="d-flex flex-column ">
             <p class="card-title fw-medium p-0 m-0 "><small>{{data.publisher.firstName}} {{data.publisher.lastName}}</small>
             </p>
             <p class="card-title p-0 m-0 text-muted date"><small>{{data.createdAt | date: "d MMMM y 'à' H:mm "}}</small>
@@ -17,7 +16,8 @@
 
         <img *ngIf="isImage()" [src]="data.media" class="card-img shadow-sm my-2 " [alt]="data.title">
 
-        <video  width="100%"  class="card-img shadow-sm my-2 rounded" style="max-height: 500px;"  preload="metadata" 
+      
+      <video  width="100%"  class="card-img shadow-sm my-2 rounded" style="max-height: 500px;"  preload="metadata" 
             *ngIf="isVideo()" controls>
             <source [src]="data.media" type="video/mp4">
         </video>
@@ -27,7 +27,8 @@
         <div>
             <button class="btn p-1 px-3 " (click)="onLike()">
                 <p class="card-title fw-medium d-flex align-items-center mt-1 text-muted"><i class="bi "
-                        [ngClass]="{'bi-heart ':isLiked==false,'bi-heart-fill text-danger':isLiked}"></i> <small class="ms-1">{{data.totalLikes}}
+                        [ngClass]="{'bi-heart ':isLiked==false || isLiked == null,'bi-heart-fill text-danger':isLiked}"></i> 
+                        <small class="ms-1" [ngClass]="{'text-danger':isLiked}">{{data.totalLikes}}  
                         j'aime</small></p>
             </button>
         </div>

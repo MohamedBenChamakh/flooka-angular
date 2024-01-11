@@ -1,6 +1,6 @@
 import { APP_INITIALIZER, LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ProfileComponent } from './components/profile/profile.component';
@@ -17,6 +17,7 @@ import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
 import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
 import { initializer } from 'src/utils/app-init';
+import { ToastrModule } from 'ngx-toastr';
 registerLocaleData(localeFr, 'fr');
 @NgModule({
   declarations: [
@@ -33,7 +34,9 @@ registerLocaleData(localeFr, 'fr');
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule, 
-    KeycloakAngularModule
+    KeycloakAngularModule,
+    BrowserAnimationsModule,
+  	ToastrModule.forRoot()
   ],
   providers: [ContentService, CategoryService,
      { provide: LOCALE_ID, useValue: 'fr' },

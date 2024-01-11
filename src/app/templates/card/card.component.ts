@@ -3,6 +3,7 @@ import { Content } from '../../models/Content';
 import { ContentService } from 'src/app/services/content/content.service';
 import { Subject, takeUntil } from 'rxjs';
 import { KeycloakService } from 'keycloak-angular';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-card',
@@ -17,9 +18,9 @@ export class CardComponent implements OnInit {
 
   ngOnInit(): void {
     this.keycloak.loadUserProfile()
-    .then(values => 
-      this.isLiked = this.data.likes
-      .find(element => element.user.id === values.id) != null);
+      .then(values =>
+        this.isLiked = this.data.likes
+          .find(element => element.user.id === values.id) != null);
 
     this.destroy$ = new Subject<boolean>();
   }
@@ -27,17 +28,28 @@ export class CardComponent implements OnInit {
   constructor(private contentService: ContentService, private keycloak: KeycloakService) { }
 
   onLike() {
-    this.isLiked = !this.isLiked;
-    this.contentService.likeContent(this.data.id).pipe(
-      takeUntil(this.destroy$)
-    ).subscribe({
-      next: (value)=>{
-        this.data = value;
-      },
-      error: ()=> this.isLiked = !this.isLiked
-    })
-    
+    if(this.keycloak.isLoggedIn()){
+      this.preLike();
+      this.contentService.likeContent(this.data.id).pipe(
+        takeUntil(this.destroy$)
+      ).subscribe({
+        next: (values) => {
+          if (this.data.totalLikes != values.totalLikes)
+            this.data.totalLikes = values.totalLikes;
+        },
+        error: () => this.preLike()
+      })
+    }
+  }
 
+
+  preLike() {
+    if (this.isLiked) {
+      this.data.totalLikes--;
+    } else {
+      this.data.totalLikes++;
+    }
+    this.isLiked = !this.isLiked;
 
   }
 
