@@ -10,30 +10,23 @@ import { CategoryService } from 'src/app/services/category/category.service';
   styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent {
-  @Output() switchCategoryEvent = new EventEmitter<string>();
-  @Input() categoryId?: string;
+  @Output() switchCategoryEvent = new EventEmitter<Category>();
+  @Input() category?: Category;
   categories$!: Observable<Category[]>;
-  isLoggedIn!: boolean;
-  name?: string;
+
 
 
   ngOnInit() {
     this.categories$ = this.categoryService.getAllCategories();
-    this.isLoggedIn = this.keycloak.isLoggedIn();
-    if (this.isLoggedIn) {
-      this.keycloak.loadUserProfile().then(values => {
-        if (values.firstName && values.lastName)
-          this.name = values.firstName + " " + values.lastName
-      })
-    }
+    
   }
 
   constructor(private categoryService: CategoryService, private keycloak: KeycloakService) {
   }
 
 
-  switchCategory(categoryId?: string) {
-    this.switchCategoryEvent.emit(categoryId);
+  switchCategory(category?: Category) {
+    this.switchCategoryEvent.emit(category);
   }
 
 

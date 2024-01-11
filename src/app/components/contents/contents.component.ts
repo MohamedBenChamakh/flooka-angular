@@ -10,7 +10,7 @@ import { ContentService } from 'src/app/services/content/content.service';
   styleUrls: ['./contents.component.scss']
 })
 export class ContentsComponent implements OnInit, OnDestroy {
-  categoryId?: string;
+  category?: Category;
   destroy$!: Subject<boolean>;
   contents: Content[] = [];
   page: number = 0;
@@ -37,19 +37,24 @@ export class ContentsComponent implements OnInit, OnDestroy {
   }
 
   getContentsByCategoryId(categoryId: string, page: number) {
-    this.contentService.getContentsByCategoryId(categoryId, page).pipe(
-      takeUntil(this.destroy$)
-    ).subscribe((values: Content[]) => this.contents = values);
+      this.contentService.getContentsByCategoryId(categoryId, page).pipe(
+        takeUntil(this.destroy$)
+      ).subscribe({
+        next: (values: Content[]) => {this.contents = values ;},
+        error: e => console.log(e)
+    });
   }
 
-  switchCategory(categoryId?: string) {
-    this.categoryId = categoryId;
+  switchCategory(category: any) {
+    this.category =category;
     this.isBottom = false;
     this.page = 0;
     this.contents = [];
     this.destroy$.next(true);
-    if (categoryId)
-      this.getContentsByCategoryId(categoryId, this.page);
+    if (category){
+      console.log(category)
+    this.getContentsByCategoryId(category.id, this.page);
+    }
     else {
       this.getContents(this.page)
     }
@@ -68,8 +73,8 @@ export class ContentsComponent implements OnInit, OnDestroy {
 
   loadMore() {
     this.page++;
-    if (this.categoryId) {
-      this.contentService.getContentsByCategoryId(this.categoryId, this.page).pipe(
+    if (this.category && this.category.id) {
+      this.contentService.getContentsByCategoryId(this.category.id, this.page).pipe(
         takeUntil(this.destroy$)
       ).subscribe((values: Content[]) => {
         values.forEach(element => {

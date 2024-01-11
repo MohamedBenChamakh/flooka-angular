@@ -8,16 +8,23 @@
     <div class=" w-25">
         <img src="assets/logo.svg" width="130" routerLink="/contents" class="navbar-brand ms-5 " />
     </div>
-    <div class="w-50 ">
+    <div class="w-25 ">
         <div class="input-group  ">
-            <span class="input-group-text " id="inputGroup-sizing-sm"><i class="bi bi-search"></i></span>
+            <span class="input-group-text bg-white " id="inputGroup-sizing-sm"><i class="bi bi-search"></i></span>
             <input type="text" class="form-control " placeholder="Recherche..." aria-label="search input"
                 aria-describedby="inputGroup-sizing-sm">
         </div>
     </div>
     <div class="w-25  d-flex justify-content-end">
+        <div *ngIf="isLoggedIn">
+            <button type="button" class="btn btn-sm p-0 me-2" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                data-bs-title="Tooltip on bottom">
+                <img src="https://cdn.pixabay.com/photo/2021/02/22/16/34/portrait-6040876_1280.jpg"
+                    alt="profile picture" width="40px" id="pdp" class="  rounded  shadow-sm" routerLink="/profile" />
+            </button>
+        </div>
         <button class="btn btn-light border me-4" (click)="logOut()" *ngIf="isLoggedIn">
-            <small class="d-none d-sm-block "><i class="bi bi-box-arrow-right text-muted"></i> Se déconnecter</small>
+            <small class="d-none d-sm-block "><i class="bi bi-box-arrow-right text-muted"></i></small>
         </button>
         <button class="btn btn-light border  me-4" (click)="logIn()" *ngIf="isLoggedIn==false">
             <small class="d-none d-sm-block "><i class="bi bi-person-square text-muted"></i> Se connecter</small>

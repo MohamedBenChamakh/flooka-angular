@@ -9,14 +9,19 @@ import { KeycloakService } from 'keycloak-angular';
 export class NavbarComponent implements OnInit {
   isDark!: boolean;
   isLoggedIn!: boolean;
+  name?: string;
 
   constructor(private keycloak: KeycloakService) { }
 
   ngOnInit(): void {
     this.isDark = document.documentElement.getAttribute('data-bs-theme') === 'dark';
     this.isLoggedIn = this.keycloak.isLoggedIn();
-    if (this.isLoggedIn)
-      this.keycloak.loadUserProfile().then(console.log)
+    if (this.isLoggedIn) {
+      this.keycloak.loadUserProfile().then(values => {
+        if (values.firstName && values.lastName)
+          this.name = values.firstName + " " + values.lastName
+      })
+    }
   }
 
 

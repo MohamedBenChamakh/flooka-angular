@@ -1,48 +1,52 @@
 <div class="card my-1 border  p-0">
     <div class="card-header d-flex align-items-center bg-white border-0">
-        <img [src]="data.publisher.picture" alt="profile picture"
-            class="rounded-profile me-2 rounded  shadow-sm " width="45px" />
+        <img [src]="data.publisher.picture" alt="profile picture" class="rounded-profile me-2 rounded  shadow-sm "
+            width="45px" />
         <div class="d-flex flex-column ">
-            <p class="card-title fw-medium p-0 m-0 "><small>{{data.publisher.firstName}} {{data.publisher.lastName}}</small>
+            <p class="card-title fw-medium p-0 m-0 "><small>{{data.publisher.firstName}}
+                    {{data.publisher.lastName}}</small>
             </p>
             <p class="card-title p-0 m-0 text-muted date"><small>{{data.createdAt | date: "d MMMM y 'à' H:mm "}}</small>
             </p>
         </div>
     </div>
     <div class="card-body p-2 ">
-        <p class="card-title fw-medium m-0 " ><small>{{data.title}}</small></p>
-        <p class="card-title  m-0 "><small>{{data.description}}</small></p>
-
-        <img *ngIf="isImage()" [src]="data.media" class="card-img shadow-sm my-2 " [alt]="data.title">
-
-      
-      <video  width="100%"  class="card-img shadow-sm my-2 rounded" style="max-height: 500px;"  preload="metadata" 
-            *ngIf="isVideo()" controls>
-            <source [src]="data.media" type="video/mp4">
-        </video>
+        <div>
+            <p class="card-title fw-medium m-0 "><small>{{data.title}}</small></p>
+            <p class="card-title  m-0 "><small>{{data.description}}</small></p>
+        </div>
+        <div class="d-flex justify-content-center ">
+            <img *ngIf="isImage()" [src]="data.media" class="card-img shadow-sm my-2  " [alt]="data.title">
+            <video width="100%" class="card-img shadow-sm my-2 rounded " style="max-height: 500px;" preload="metadata"
+                *ngIf="isVideo()" controls>
+                <source [src]="data.media" type="video/mp4">
+            </video>
+        </div>
 
     </div>
     <div class="card-footer d-flex justify-content-between">
         <div>
             <button class="btn p-1 px-3 " (click)="onLike()">
                 <p class="card-title fw-medium d-flex align-items-center mt-1 text-muted"><i class="bi "
-                        [ngClass]="{'bi-heart ':isLiked==false || isLiked == null,'bi-heart-fill text-danger':isLiked}"></i> 
-                        <small class="ms-1" [ngClass]="{'text-danger':isLiked}">{{data.totalLikes}}  
-                        j'aime</small></p>
+                        [ngClass]="{'bi-heart ':isLiked==false || isLiked == null,'bi-heart-fill text-danger':isLiked}"></i>
+                    <small class="ms-1" [ngClass]="{'text-danger':isLiked}">{{data.totalLikes}}
+                        j'aime</small>
+                </p>
             </button>
         </div>
         <div>
             <button class="btn p-1 px-3 ">
-                <p class="card-title fw-medium mt-1 text-muted"><i class="bi bi-chat-dots"></i><small class="ms-1"> {{data.totalComments}}
+                <p class="card-title fw-medium mt-1 text-muted"><i class="bi bi-chat-dots"></i><small class="ms-1">
+                        {{data.totalComments}}
                         commentaires</small></p>
             </button>
 
         </div>
         <div>
-            <p class="card-title fw-medium  pt-1 px-3 mt-1 text-muted"><i class="bi bi-eye"></i><small class="ms-1"> 0 vues
+            <p class="card-title fw-medium  pt-1 px-3 mt-1 text-muted"><i class="bi bi-eye"></i><small class="ms-1"> 0
+                    vues
                 </small></p>
         </div>
 
     </div>
 </div>
-

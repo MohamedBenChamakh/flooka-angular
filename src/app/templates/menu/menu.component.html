@@ -1,18 +1,10 @@
-<div class="content ">
-    <div>
-        <ul class="mt-3 list-group rounded-0 " *ngIf="isLoggedIn">
-            <li class="list-group-item border-0  bg-transparent rounded list-group-item-action  fs-6 fw-medium"> <img
-                    src="https://cdn.pixabay.com/photo/2021/02/22/16/34/portrait-6040876_1280.jpg" alt="profile picture"
-                    width="40px" id="pdp" class="  rounded  shadow-sm" routerLink="/profile" /> {{name}}</li>
-        </ul>
-        <hr class="solid"  *ngIf="isLoggedIn">
-        <h6 class="mt-3 text-muted">Catégories</h6>
-        <ul class="mt-3 list-group list-group-flush rounded-0 ">
-            <li class="list-group-item border-0  bg-transparent  rounded list-group-item-action fs-6 "
-                [ngClass]="{'active fw-medium':categoryId===category.id}" *ngFor="let category of categories$ | async"
-                (click)="switchCategory(category.id)">
-                <i [class]="category.icon"></i> {{category.title}}
-            </li>
-        </ul>
-    </div>
+<div class="content  me-1">
+    <p class="mt-3 text-muted ">Thématiques</p>
+    <ul class="mt-3 list-group list-group-flush rounded-0  ">
+        <li class="list-group-item border-0  bg-transparent  rounded list-group-item-action fs-6 "
+            [ngClass]="{'active fw-medium':category?.id===data.id}" *ngFor="let data of categories$ | async"
+            (click)="switchCategory(data)">
+            <i [class]="data.icon"></i> {{data.title}}
+        </li>
+    </ul>
 </div>

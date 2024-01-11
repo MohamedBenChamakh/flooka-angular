@@ -15,7 +15,7 @@ import { FileService } from 'src/app/services/file/file.service';
 })
 export class CreatePostComponent implements OnInit {
 
-  @Input() categoryId?: string;
+  @Input() category?: Category;
   contentForm!: FormGroup;
   file?: File;
   url?: any;
@@ -67,7 +67,7 @@ export class CreatePostComponent implements OnInit {
           console.log(media)
           const formValue = {
             ...this.contentForm.value,
-            category: new Category(this.categoryId),
+            category: new Category(this.category?.id),
             publisher: new User("550e8400-e29b-41d4-a716-446655440001"),
             media: media,
             mediaType: mediaType,
@@ -80,7 +80,7 @@ export class CreatePostComponent implements OnInit {
     } else {
       const formValue = {
         ...this.contentForm.value,
-        category: new Category(this.categoryId),
+        category: new Category(this.category?.id),
         publisher: new User("550e8400-e29b-41d4-a716-446655440001")
       };
       this.contentService.saveContent(formValue).subscribe({
