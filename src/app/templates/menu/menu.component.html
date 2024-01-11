@@ -1,13 +1,4 @@
 <div class="content ">
-    <!-- <div class="card border-0 mb-5 bg-transparent d-flex flex-column justify-content-center align-items-center ">
-        <img src="assets/logo.svg" width="140" routerLink="/contents" class="navbar-brand " />
-    </div>
-    <div class="card border-0 bg-transparent d-flex  mx-auto">
-        <img src="https://cdn.pixabay.com/photo/2021/02/22/16/34/portrait-6040876_1280.jpg" alt="profile picture"
-            width="75px" id="pdp" class="  rounded  shadow-sm" routerLink="/profile" />
-        <h6 class="my-2"> Mohamed Ben Chamakh</h6>
-    </div>-->
-
     <div>
         <ul class="mt-3 list-group rounded-0 " *ngIf="isLoggedIn">
             <li class="list-group-item border-0  bg-transparent rounded list-group-item-action  fs-6 fw-medium"> <img
@@ -17,9 +8,6 @@
         <hr class="solid"  *ngIf="isLoggedIn">
         <h6 class="mt-3 text-muted">Catégories</h6>
         <ul class="mt-3 list-group list-group-flush rounded-0 ">
-            <li class="list-group-item border-0  bg-transparent rounded list-group-item-action  fs-6 "
-                [ngClass]="{'active fw-medium':!categoryId}" (click)="switchCategory()"><i class="bi bi-archive"></i>
-                Voir tout</li>
             <li class="list-group-item border-0  bg-transparent  rounded list-group-item-action fs-6 "
                 [ngClass]="{'active fw-medium':categoryId===category.id}" *ngFor="let category of categories$ | async"
                 (click)="switchCategory(category.id)">
